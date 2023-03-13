@@ -4,7 +4,7 @@ const Food = require("../models/foodModel");
 exports.createOrder = async (req, res) => {
   try {
       let { customerName, orderItems } = req.body;
-      
+      if(orderItems.length === 0) return
     orderItems = await Promise.all(
         orderItems.map(async (foodName) => {
           console.log(foodName)

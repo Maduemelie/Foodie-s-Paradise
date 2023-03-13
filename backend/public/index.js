@@ -1,35 +1,35 @@
 const output = document.querySelector(".output");
 const outputContainer = document.querySelector(".output-container");
 const inputNum = document.getElementById("inputNum");
-const btn = document.getElementById("btn");
+const btn = document.querySelector(".btn");
 let arr;
 let user = prompt("Please enter your name:");
 
 async function handleInput() {
   if (inputNum.value === "1") {
     showMenu();
-    const newBtn = createElement(
-      "button",
-      "selectmeal",
-      outputContainer,
-      "btnMeals",
-      {
-        padding: "10px 20px",
-        border: "none",
-        background: "#333",
-        color: "#fff",
-        borderRadius: "5px",
-        fontSize: "12px",
-      }
-    );
-    newBtn.addEventListener("click", async () => {
+
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
       // console.log("clicked");
       const items = await showMenu();
+      // console.log(items)
       arr = selectFoodItems(items);
+      // console.log(arr)
     });
   } else {
     if (inputNum.value === "99") {
       createOrder();
+      // console.log(arr);
+      if (arr.length === 0) {
+        displayMessage("No order to place");
+        btn.innerHTML = "Place order";
+        btn.addEventListener("click", async () => {
+          handleInput()
+        });
+      } else {
+        displayMessage("Order placed");
+      }
       // console.log("here");
     }
     // handle other input numbers here
@@ -61,7 +61,7 @@ async function showMenu() {
 
   const message = `Here's the meal plan for ${day}:\n${items.join("\n")}`;
   displayMessage(message);
-
+  btn.innerHTML = "Select meal";
   return items;
 }
 
@@ -100,7 +100,16 @@ function selectFoodItems(items) {
     if (selection === null || selection === "") {
       return selectedItems;
     } else if (selection !== "done") {
+      // check if the selection is valid
       const selectedFood = items[parseInt(selection) - 1];
+      if (selectedFood === undefined) {
+        // display error message and continue loop
+        const errorMessage = `Invalid selection: ${selection}. Please select a number between 1 and ${items.length}.`;
+        displayMessage(errorMessage);
+        console.log(errorMessage);
+        continue;
+      }
+      // const selectedFood = items[parseInt(selection) - 1];
       selectedItems.push(selectedFood);
     }
 
@@ -109,6 +118,7 @@ function selectFoodItems(items) {
     )}`;
     displayMessage(messageToSend);
     console.log(selectedItems);
+    btn.style.display = "none";
   }
 
   return selectedItems;
@@ -117,19 +127,6 @@ function selectFoodItems(items) {
 //function to display message
 function displayMessage(message) {
   output.innerText = message;
-}
-
-function createElement(tagName, textContent, parentElement, className, styles) {
-  const element = document.createElement(tagName);
-  element.innerText = textContent;
-  element.classList.add(className);
-  // add the specified styles to the element
-  for (const [property, value] of Object.entries(styles)) {
-    element.style[property] = value;
-  }
-
-  parentElement.appendChild(element);
-  return element;
 }
 
 function splitFoodName(arr) {
