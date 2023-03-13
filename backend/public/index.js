@@ -23,14 +23,14 @@ async function handleInput() {
       }
     );
     newBtn.addEventListener("click", async () => {
-      console.log("clicked");
+      // console.log("clicked");
       const items = await showMenu();
       arr = selectFoodItems(items);
     });
   } else {
     if (inputNum.value === "99") {
       createOrder();
-      console.log("here");
+      // console.log("here");
     }
     // handle other input numbers here
   }
