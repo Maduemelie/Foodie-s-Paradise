@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foodie's Paradise</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="Foodie_chat">
+      <h1>Foodie's Paradise</h1>
+      <div class="select">
+        <ul>
+          <li>Select 1 to place an order</li>
+          <li>Select 99 to checkout an order</li>
+          <li>Select 98 to see order history</li>
+          <li>Select 97 to see current order</li>
+          <li>Select 0 to cancel order</li>
+        </ul>
+      </div>
+      <div class="output-container">
+        <div class="output"></div>
+      <div class="btn"></div>
+    </div>
+      <div>
+        <input type="number" id="inputNum" placeholder="number" />
+        <input type="submit" value="send" onclick="handleInput()" />
+      </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script type="module"  src="../controllers/mealPlanController.js"></script> -->
+   <script    src="index.js"></script>
+  </body>
+</html>
