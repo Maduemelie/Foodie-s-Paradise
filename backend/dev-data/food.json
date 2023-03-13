@@ -1,0 +1,228 @@
+[
+  {
+    "name": "Yam and Egg Sauce",
+    "description": "A classic Nigerian breakfast dish made with yam and a spicy tomato-based egg sauce.",
+    "category": "Breakfast",
+    "price": 8.99,
+    "available": true
+  },
+  {
+    "name": "Plantain Pancakes",
+    "description": "Fluffy pancakes made with ripe plantains and topped with fresh fruit.",
+    "category": "Breakfast",
+    "price": 10.99,
+    "available": true
+  },
+  {
+    "name": "Moi Moi (Bean Pudding)",
+    "description": "A popular Nigerian breakfast made with black-eyed peas, peppers, onions, and spices.",
+    "category": "Breakfast",
+    "price": 7.99,
+    "available": true
+  },
+  {
+    "name": "Boiled Plantain and Egg Sauce",
+    "description": "A simple and satisfying Nigerian breakfast of boiled plantains and a spicy tomato-based egg sauce.",
+    "category": "Breakfast",
+    "price": 8.99,
+    "available": true
+  },
+  {
+    "name": "Bread and Omelette",
+    "description": "A classic Nigerian breakfast of fluffy omelette served with sliced bread.",
+    "category": "Breakfast",
+    "price": 6.99,
+    "available": true
+  },
+  {
+    "name": "Oatmeal",
+    "description": "A warm and hearty breakfast dish made with oats, milk, and your choice of toppings.",
+    "category": "Breakfast",
+    "price": 6.99,
+    "available": true
+  },
+  {
+    "name": "Yam Porridge (Asaro)",
+    "description": "A savory porridge made with yam, vegetables, and seasonings.",
+    "category": "Breakfast",
+    "price": 9.99,
+    "available": true
+  },
+  {
+    "name": "Plantain Frittata",
+    "description": "A hearty breakfast dish made with plantains, eggs, and vegetables.",
+    "category": "Breakfast",
+    "price": 8.99,
+    "available": true
+  },
+  {
+    "name": "Akara and Pap",
+    "description": "A traditional Nigerian breakfast of black-eyed pea fritters and a cornmeal porridge.",
+    "category": "Breakfast",
+    "price": 7.99,
+    "available": true
+  },
+  {
+    "name": "Yam and Fried Egg",
+    "description": "A simple and satisfying breakfast dish of yam and a fried egg.",
+    "category": "Breakfast",
+    "price": 7.99,
+    "available": true
+  },
+  {
+    "name": "Pancakes",
+    "description": "Fluffy pancakes served with your choice of toppings.",
+    "category": "Breakfast",
+    "price": 6.99,
+    "available": true
+  },
+  {
+    "name": "Fried Rice and Chicken",
+    "description": "A flavorful Nigerian dish made with rice, vegetables, and chicken that's been marinated in a spicy sauce.",
+    "category": "Lunch",
+    "price": 12.99,
+    "available": true
+  },
+  {
+    "name": "Vegetable Stir Fry with Grilled Chicken",
+    "description": "A healthy and flavorful Nigerian dish made with stir-fried vegetables and grilled chicken.",
+    "category": "Lunch",
+    "price": 14.99,
+    "available": true
+  },
+  {
+    "name": "Moi Moi and Custard",
+    "description": "A popular Nigerian dish made with black-eyed peas, peppers, onions, and spices, served with custard.",
+    "category": "Lunch",
+    "price": 11.99,
+    "available": true
+  },
+  {
+    "name": "Fried Plantains with Stewed Beans",
+    "description": "A classic Nigerian dish made with fried plantains and a spicy stewed bean sauce.",
+    "category": "Lunch",
+    "price": 10.99,
+    "available": true
+  },
+  {
+    "name": "Fried Rice and Beef Stew",
+    "description": "A hearty and flavorful Nigerian dish made with rice, vegetables, and beef stew.",
+    "category": "Lunch",
+    "price": 13.99,
+    "available": true
+  },
+  {
+    "name": "Grilled Fish and Fried Plantains",
+    "description": "A delicious and filling Nigerian dish made with grilled fish and fried plantains.",
+    "category": "Lunch",
+    "price": 14.99,
+    "available": true
+  },
+  {
+    "name": "Pepper Soup and Suya",
+    "description": "A spicy and flavorful Nigerian dish made with a hot pepper soup and suya, a popular street food made with grilled beef or chicken.",
+    "category": "Lunch",
+    "price": 11.99,
+    "available": true
+  },
+
+  {
+    "name": "Grilled Turkey and Coleslaw",
+    "description": "A healthy and flavorful Nigerian dish made with grilled turkey and a side of coleslaw.",
+    "category": "Lunch",
+    "price": 15.99,
+    "available": true
+  },
+  {
+    "name": "Ofada Rice with Fried Chicken",
+    "description": "A traditional Nigerian dish made with Ofada rice, a locally grown variety of rice, and fried chicken.",
+    "category": "Lunch",
+    "price": 13.99,
+    "available": true
+  },
+  {
+    "name": "Jollof Spaghetti with Fried Fish",
+    "description": "A delicious Nigerian dish made with spaghetti cooked in a spicy tomato-based sauce and served with fried fish.",
+    "category": "Lunch",
+    "price": 14.99,
+    "available": true
+  },
+
+  {
+    "name": "Fried Rice and Chicken",
+    "description": "A flavorful Nigerian dish made with rice, vegetables, and chicken that's been marinated in a spicy sauce.",
+    "category": "Lunch",
+    "price": 12.99,
+    "available": true
+  },
+  {
+    "name": "Peppered Snails and Soda",
+    "description": "A spicy Nigerian dish made with snails and served with soda.",
+    "category": "Dinner",
+    "price": 15.99,
+    "available": true
+  },
+  {
+    "name": "Afang Soup and Pounded Yam",
+    "description": "A flavorful Nigerian soup made with afang leaves and served with pounded yam.",
+    "category": "Dinner",
+    "price": 17.99,
+    "available": true
+  },
+  {
+    "name": "Stewed Beans and Fried Plantains",
+    "description": "A classic Nigerian dish made with stewed beans and served with fried plantains.",
+    "category": "Dinner",
+    "price": 14.99,
+    "available": true
+  },
+  {
+    "name": "Edikang Ikong Soup and Eba",
+    "description": "A flavorful Nigerian soup made with a variety of vegetables and served with eba, a type of cassava-based dough.",
+    "category": "Dinner",
+    "price": 18.99,
+    "available": true
+  },
+  {
+    "name": "Ewedu Soup and Amala",
+    "description": "A traditional Nigerian soup made with ewedu leaves and served with amala, a type of yam-based dough.",
+    "category": "Dinner",
+    "price": 16.99,
+    "available": true
+  },
+  {
+    "name": "Nkwobi (Cow Foot) and Beer",
+    "description": "A popular Nigerian dish made with cow foot and served with beer.",
+    "category": "Dinner",
+    "price": 14.99,
+    "available": true
+  },
+  {
+    "name": "Okra Soup with Fufu",
+    "description": "A delicious and filling Nigerian soup made with okra and served with fufu, a type of cassava-based dough.",
+    "category": "Dinner",
+    "price": 15.99,
+    "available": true
+  },
+  {
+    "name": "Banga Soup and Pounded Yam",
+    "description": "A hearty Nigerian soup made with palm fruit and served with pounded yam.",
+    "category": "Dinner",
+    "price": 16.99,
+    "available": true
+  },
+  {
+    "name": "Egusi Soup and Semovita",
+    "description": "A rich and flavorful Nigerian stew made with ground melon seeds and served with semovita, a type of cassava-based dough.",
+    "category": "Dinner",
+    "price": 17.99,
+    "available": true
+  },
+  {
+    "name": "Efo Riro and Eba",
+    "description": "A classic Nigerian dish made with spinach, tomatoes, and bell peppers, served with eba, a type of cassava-based dough.",
+    "category": "Dinner",
+    "price": 15.99,
+    "available": true
+  }
+]

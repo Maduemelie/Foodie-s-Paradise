@@ -1,0 +1,54 @@
+{
+  "meals": [
+    [
+      "Yam and Egg Sauce",
+      "Plantain Pancakes",
+      "Moi Moi (Bean Pudding)",
+      "Boiled Plantain and Egg Sauce"
+    ],
+    [
+      "Bread and Omelette",
+      "Oatmeal",
+      "Yam Porridge (Asaro)",
+      "Plantain Frittata"
+    ],
+    [
+      "Akara and Pap",
+      "Yam and Fried Egg",
+      "Pancakes"
+    ],
+    [
+      "Fried Rice and Chicken",
+      "Vegetable Stir Fry with Grilled Chicken",
+      "Moi Moi and Custard",
+      "Fried Plantains with Stewed Beans"
+    ],
+    [
+      "Fried Rice and Beef Stew",
+      "Grilled Fish and Fried Plantains",
+      "Pepper Soup and Suya",
+      "Grilled Turkey and Coleslaw"
+    ],
+    [
+      "Ofada Rice with Fried Chicken",
+      "Jollof Spaghetti with Fried Fish",
+      "Fried Rice and Chicken"
+    ],
+    [
+      "Peppered Snails and Soda",
+      "Afang Soup and Pounded Yam",
+      "Stewed Beans and Fried Plantains",
+      "Edikang Ikong Soup and Eba"
+    ],
+    [
+      "Ewedu Soup and Amala",
+      "Nkwobi (Cow Foot) and Beer",
+      "Okra Soup with Fufu",
+      "Banga Soup and Pounded Yam"
+    ],
+    [
+      "Egusi Soup and Semovita",
+      "Efo Riro and Eba"
+    ]
+  ]
+}
