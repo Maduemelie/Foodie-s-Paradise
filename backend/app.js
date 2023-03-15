@@ -1,9 +1,12 @@
 const express = require("express");
 const connectToDb = require("./config/mongoDb");
+const cookieParser = require('cookie-parser');
 const mealRouter = require("./routes/mealPlanRoutes");
 const foodRouter = require("./routes/foodRoutes");
 const orderRouter = require('./routes/orderRouter')
 const cors = require('cors')
+const generateUserId = require('./utils/userId')
+
 
 require("dotenv").config();
 const app = express();
@@ -12,6 +15,7 @@ const PORT = process.env.PORT || 4000;
 
 
 app.use(cors())
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
@@ -20,8 +24,11 @@ app.use("/api/v1/food", foodRouter);
 app.use("/api/v1/order", orderRouter);
 
 
-app.get("/", (req, res) => {
-  res.json({ message: " Welcome to Foodies Paradise" });
+app.get("/Foodie's_Paradise", (req, res) => {
+  const userId = generateUserId()// function to generate a unique user ID
+  res.cookie('userId', userId, { maxAge: 86400000});
+  res.sendFile(__dirname + "/public/index.html")
+
 });
 
 connectToDb();

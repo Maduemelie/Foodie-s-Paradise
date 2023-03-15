@@ -3,11 +3,11 @@ const Food = require("../models/foodModel");
 
 exports.createOrder = async (req, res) => {
   try {
-      let { customerName, orderItems } = req.body;
+      let { customerName, orderItems, totalPrice } = req.body;
       if(orderItems.length === 0) return
     orderItems = await Promise.all(
         orderItems.map(async (foodName) => {
-          console.log(foodName)
+          // console.log(foodName)
             let food = await Food.findOne( {name: foodName} );
             console.log(food)
             return food._id
@@ -22,7 +22,8 @@ exports.createOrder = async (req, res) => {
     
     const order = await Order.create({
       customerName,
-      orderItems
+      orderItems,
+      totalPrice
     });
     res.status(200).json({
       status: "Success",
