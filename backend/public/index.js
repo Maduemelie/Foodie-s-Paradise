@@ -23,10 +23,12 @@ async function handleInput() {
   if (inputNum.value === "1") {
     arr = [];
     await showMenu();
+    
+    
     // arr = selectFoodItems(items);
   } else {
     if (inputNum.value === "99") {
-       createOrder();
+      createOrder();
       if (arr.length === 0) {
         displayMessage("No order to place");
         btn.innerHTML = "Place order";
@@ -38,14 +40,13 @@ async function handleInput() {
         displayMessageWrapper("Order placed");
       }
       const optionsDiv = document.querySelector(".options");
-      optionsDiv.innerHTML= ""
-    }
+      optionsDiv.innerHTML = "";
+    } 
     // handle other input numbers here
   }
+  
   inputNum.value = "";
 }
-
-
 
 async function showMenu() {
   const daysOfWeek = [
@@ -69,9 +70,12 @@ async function showMenu() {
     },
   }).then((response) => response.json());
   console.log(items);
-  const optionsDiv = document.createElement("div");
+  let optionsDiv = document.createElement("div");
   optionsDiv.className = "options";
   Foodie_chat.appendChild(optionsDiv);
+  const header = document.createElement("h4");
+  header.textContent = `Here's the meal plan for ${day}:`;
+  optionsDiv.appendChild(header);
   console.log(optionsDiv);
   // format the meal options for display
   const foodItems = Object.values(items.meals)
@@ -79,13 +83,11 @@ async function showMenu() {
     .map((food, index) => {
       const option = document.createElement("label");
       option.className = "option";
-      option.innerHTML = option.innerHTML = `
+      option.innerHTML = `
       <input type="checkbox" name="food-item" value="${food}">
       ${index + 1}. ${food}\n
     </br>
-    
     `;
-    
       optionsDiv.appendChild(option);
       return food;
     });
@@ -93,13 +95,11 @@ async function showMenu() {
   doneButton.textContent = "Done";
   doneButton.className = "done-button";
   doneButton.addEventListener("click", () => {
-    // const parentElement = optionsDiv.parentNode;
-
-    // Foodie_chat.removeChild(optionsDiv);
     const selectedItems = selectFoodItems(foodItems);
     const messageToSend = `You have selected the following items:\n 
    \n </br>${selectedItems.join("</br>")}`;
-    displayMessage(messageToSend);
+  optionsDiv =  displayMessage(messageToSend);
+    
   });
   Foodie_chat.appendChild(doneButton);
 
@@ -113,12 +113,12 @@ async function showMenu() {
     });
     Foodie_chat.removeChild(doneButton);
     arr = selectedItems;
+    
+
     // console.log(selectedItems);
     return selectedItems;
   }
 }
-
-
 
 async function createOrder() {
   const data = {
@@ -141,91 +141,12 @@ async function createOrder() {
     .then((response) => response.json())
     .then((data) => console.log(data))
     .catch((error) => console.log(error));
+    const optionsDiv = document.querySelector(".options");
+    Foodie_chat.removeChild(optionsDiv)
   return order;
+  
 }
-//function to select food from the mealplan
-//
-//
-// function selectFoodItems(items) {
-//   const selectedItems = [];
-//   let selection;
-//   while (selection !== "done") {
-//     selection = window.prompt(
-//       `Enter the number of the food item you would like to select, or type "done" to finish:\n ${items.join(
-//         "\n"
-//       )}`
-//     );
-//     if (selection === null || selection === "") {
-//       return selectedItems;
-//     } else if (selection !== "done") {
-//       // check if the selection is valid
-//       const selectedFood = items[parseInt(selection) - 1];
-//       if (selectedFood === undefined) {
-//         // display error message and continue loop
-//         const errorMessage = `Invalid selection: ${selection}. Please select a number between 1 and ${items.length}.`;
-//         displayMessage(errorMessage);
-//         continue;
-//       }
-//       // const selectedFood = items[parseInt(selection) - 1];
-//       selectedItems.push(selectedFood);
-//     }
 
-//     const messageToSend = `You have selected the following items:\n${selectedItems.join(
-//       " "
-//     )}`;
-//     displayMessage(messageToSend);
-//     console.log(selectedItems);
-//     btn.style.display = "none";
-//   }
-
-//   return selectedItems;
-// }
-
-//newer version
-// function selectFoodItems(items) {
-//   const selectedItems = [];
-//   // const optionsDiv = document.createElement('div');
-//   // optionsDiv.className = 'options';
-//   // outputContainer.appendChild(optionsDiv);
-
-//   items.forEach((food, index) => {
-//     const option = document.createElement("label");
-//     option.className = "option";
-//     option.innerHTML = `
-//       <input type="checkbox" name="food-item" value="${food}">
-//       ${index + 1}. ${food}
-//     `;
-//     option.addEventListener("change", () => {
-//       const selectedCheckboxes = document.querySelectorAll(
-//         '[name="food-item"]:checked'
-//       );
-//       selectedItems.length = 0;
-//       selectedCheckboxes.forEach((checkbox) => {
-//         selectedItems.push(checkbox.value);
-//       });
-//       if (selectedItems.length > 0) {
-//         btn.style.display = "none";
-//       } else {
-//         btn.style.display = "block";
-//       }
-//     });
-//     optionsDiv.appendChild(option);
-//   });
-
-//   const doneButton = document.createElement("button");
-//   doneButton.textContent = "Done";
-//   doneButton.className = "done-button";
-//   doneButton.addEventListener("click", () => {
-//     outputContainer.removeChild(optionsDiv);
-//     const messageToSend = `You have selected the following items:\\\\\\\\\\\\\\\\n${selectedItems.join(
-//       " "
-//     )}`;
-//     displayMessage(messageToSend);
-//   });
-//   optionsDiv.appendChild(doneButton);
-
-//   return selectedItems;
-// }
 
 //function to display message
 function displayMessage(message) {
@@ -242,7 +163,6 @@ function displayMessageWrapper(message, targetElement = document.body) {
     targetElement.removeChild(messageElement);
   }, 5000);
 }
-
 
 //Function to return food name
 function returnFoodName(arr) {
