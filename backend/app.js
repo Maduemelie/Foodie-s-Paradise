@@ -5,7 +5,7 @@ const mealRouter = require("./routes/mealPlanRoutes");
 const foodRouter = require("./routes/foodRoutes");
 const orderRouter = require('./routes/orderRouter')
 const cors = require('cors')
-const generateUserId = require('./utils/userId')
+const {generateUserId} = require('./utils/userId')
 
 
 require("dotenv").config();
@@ -26,6 +26,7 @@ app.use("/api/v1/order", orderRouter);
 
 app.get("/Foodie's_Paradise", (req, res) => {
   const userId = generateUserId()// function to generate a unique user ID
+  console.log(userId)
   res.cookie('userId', userId, { maxAge: 86400000});
   res.sendFile(__dirname + "/public/index.html")
 

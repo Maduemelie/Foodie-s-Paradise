@@ -3,6 +3,12 @@ const Food = require("../models/foodModel");
 
 exports.createOrder = async (req, res) => {
   try {
+    const userId = req.header('X-User-Id');
+    // console.log(userId)
+    if (!userId) {
+      res.status(401).send('Unauthorized');
+      return;
+    }
       let { customerName, orderItems, totalPrice } = req.body;
       if(orderItems.length === 0) return
     orderItems = await Promise.all(

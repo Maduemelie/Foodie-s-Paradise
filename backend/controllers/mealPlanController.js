@@ -52,15 +52,17 @@ exports.createMealPlan = async (req, res) => {
 
 exports.getmealplan = async (req, res) => {
   try {
+    const userId = req.header('X-User-Id');
+    // console.log(userId)
+    if (!userId) {
+      res.status(401).send('Unauthorized');
+      return;
+    }
     const { day } = req.params;
     // Find the MealPlan document by day
     const mealPlan = await MealPlan.findOne({ day }).populate(
       "meals.morning meals.afternoon meals.evening"
     );
-
-    // const morningFoods = mealPlan.meals.morning.map((food) => food.name);
-    // const afternoonFoods = mealPlan.meals.afternoon.map((food) => food.name);
-    // const eveningFoods = mealPlan.meals.evening.map((food) => food.name);
 
     const morningFoods = mealPlan.meals.morning.map(
       (food) => `${food.name} - $${food.price}`

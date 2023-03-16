@@ -4,4 +4,7 @@ const generateUserId = () => {
   return `${timestamp}${randomChars}`; // Combine timestamp and random characters to create unique ID
 };
 
-module.exports = generateUserId
+
+  
+
+module.exports ={generateUserId}
