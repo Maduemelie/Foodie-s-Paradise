@@ -3,7 +3,7 @@ const Food = require("../models/foodModel");
 const fs = require("fs");
 require("dotenv").config();
 const mealplan = require("../models/mealPlanModel");
-const controller = require("../controllers/mealPlanController");
+const controller = require("../backend/controllers/mealPlanController");
 
 const MONGOOSE_URL = process.env.MONGOOSE_URL;
 // console.log(MONGOOSE_URL)

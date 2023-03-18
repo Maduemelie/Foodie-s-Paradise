@@ -1,5 +1,5 @@
-const MealPlan = require("../models/mealPlanModel");
-const Food = require("../models/foodModel");
+const MealPlan = require("../../models/mealPlanModel");
+const Food = require("../../models/foodModel");
 
 exports.createMealPlan = async (req, res) => {
   try {
@@ -52,10 +52,10 @@ exports.createMealPlan = async (req, res) => {
 
 exports.getmealplan = async (req, res) => {
   try {
-    const userId = req.header('X-User-Id');
+    const userId = req.header("X-User-Id");
     // console.log(userId)
     if (!userId) {
-      res.status(401).send('Unauthorized');
+      res.status(401).send("Unauthorized");
       return;
     }
     const { day } = req.params;
