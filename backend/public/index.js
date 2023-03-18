@@ -154,6 +154,10 @@ async function getOrderHistory() {
   })
     .then((response) => response.json())
     .then((data) => {
+      const messageElement= document.querySelector(".message");
+  if (messageElement) {
+    Foodie_chat.removeChild(messageElement);
+  }
       data.forEach((order) => {
         const customerName = order.id;
         const items = order.items
@@ -186,14 +190,18 @@ async function getCurrentOrder() {
   )
     .then((response) => response.json())
     .then((data) => {
+      let messageElement= document.querySelector(".message");
+  if (messageElement) {
+    Foodie_chat.removeChild(messageElement);
+  }
       const id = data.id;
       const items = data.items
         .map((item) => `${item.name} ($${item.price})`)
         .join(", ");
       const total = `$${data.total.toFixed(2)}`;
       console.log(id, items, total)
-      const messageToSend = `your current order!</br> name: ${id} </br> Items: ${items}.</br> Total price: ${total}.`;
-      let messageElement = createElement("message", messageToSend);
+       const messageToSend = `your current order!</br> name: ${id} </br> Items: ${items}.</br> Total price: ${total}.`;
+       messageElement = createElement("message", messageToSend);
       Foodie_chat.appendChild(messageElement);
 
       console.log(data);
@@ -222,7 +230,6 @@ async function cancelOrder() {
 }
 
 
-
 async function createOrder() {
   const data = {
     customerName: userId,
@@ -241,27 +248,80 @@ async function createOrder() {
     },
     body: JSON.stringify(data),
   });
-  if (response.ok) {
-    // console.log(response)
-    const order = await response.json();
-    
-    // display order items and total price
-    const messageToSend = `Order placed. </br> Total price: $${order.data.totalPrice}`;
-    let messageElement = createElement("message", messageToSend);
-    Foodie_chat.appendChild(messageElement);
-  } else {
+  const messageElement= document.querySelector(".message");
+  if (messageElement) {
+    Foodie_chat.removeChild(messageElement);
+  }
+  try {
+    if (response.ok) {
+      const order = await response.json();
+
+      // display order items and total price
+      const messageToSend = `Order placed. </br> Total price: $${order.data.totalPrice}`;
+      let messageElement = createElement("message", messageToSend);
+      Foodie_chat.appendChild(messageElement);
+    } else {
+      throw new Error("Failed to place order");
+    }
+  } catch (error) {
     // if there was an error creating the order, display an error message
     let messageElement = createElement(
       "message",
       "There was an error creating your order. Please try again later."
     );
     Foodie_chat.appendChild(messageElement);
-  }
-
-  // remove the options from the screen
-  const optionsDiv = document.querySelector(".options");
-  Foodie_chat.removeChild(optionsDiv);
+    console.error(error);
+  } finally {
+    // remove the options from the screen
+    const optionsDiv = document.querySelector(".options");
+    if (optionsDiv) {
+      Foodie_chat.removeChild(optionsDiv);
+    }
 }
+}
+  
+
+
+
+// async function createOrder() {
+//   const data = {
+//     customerName: userId,
+//     orderItems: returnFoodName(arr),
+//     totalPrice: returnFoodPrice(arr),
+//   };
+//   console.log(data.customerName);
+//   console.log(data.orderItems);
+//   console.log(data.totalPrice);
+
+//   const response = await fetch("http://localhost:4000/api/v1/order", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       "X-User-Id": userId, // Send the user ID in a custom header
+//     },
+//     body: JSON.stringify(data),
+//   });
+//   if (response.ok) {
+//     // console.log(response)
+//     const order = await response.json();
+    
+//     // display order items and total price
+//     const messageToSend = `Order placed. </br> Total price: $${order.data.totalPrice}`;
+//     let messageElement = createElement("message", messageToSend);
+//     Foodie_chat.appendChild(messageElement);
+//   } else {
+//     // if there was an error creating the order, display an error message
+//     let messageElement = createElement(
+//       "message",
+//       "There was an error creating your order. Please try again later."
+//     );
+//     Foodie_chat.appendChild(messageElement);
+//   }
+
+//   // remove the options from the screen
+//   const optionsDiv = document.querySelector(".options");
+//   Foodie_chat.removeChild(optionsDiv);
+// }
 
 //function to display message
 function displayMessage(message) {
