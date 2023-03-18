@@ -111,7 +111,7 @@ async function showMenu() {
       alert("Please select at least one item.");
       return;
     }
-    const messageToSend = `You have selected the following items:\n 
+    const messageToSend = `You have selected the following items:\n </br> Enter 99 to checkout</br>
    \n </br>${selectedItems.join("</br>")}`;
     let messageElement = createElement("message", messageToSend);
     Foodie_chat.appendChild(messageElement);
@@ -152,14 +152,14 @@ async function getOrderHistory() {
     Foodie_chat.removeChild(messageElement);
   }
       data.forEach((order) => {
-        const customerName = order.id;
+        // const orderId= order.id;
         const items = order.items
-          .map((item) => `${item.name} ($${item.price})`)
-          .join(", ");
+          .map((item) => `</br>${item.name} ($${item.price})`)
+          .join(",");
         const total = `$${order.total.toFixed(2)}`;
         const status = order.status;
 
-        const messageToSend = `Order ID: ${order.id}</br>\nCustomer Name: ${customerName}</br>\nItems: ${items}</br>\nTotal: ${total}</br>\nStatus: ${status}`;
+        const messageToSend = `</br>\nCustomer Name: ${userId}</br>\nItems: ${items}</br>\nTotal: ${total}</br>\nStatus: ${status}`;
         let messageElement = createElement("message", messageToSend);
         Foodie_chat.appendChild(messageElement);
       });
@@ -248,9 +248,9 @@ async function createOrder() {
   try {
     if (response.ok) {
       const order = await response.json();
-
+      console.log(order)
       // display order items and total price
-      const messageToSend = `Order placed. </br> Total price: $${order.data.totalPrice}`;
+      const messageToSend = `Order placed.</br> Total price: $${order.data.totalPrice}`;
       let messageElement = createElement("message", messageToSend);
       Foodie_chat.appendChild(messageElement);
     } else {
