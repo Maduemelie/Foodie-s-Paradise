@@ -15,3 +15,15 @@ exports.createFood = async (req, res) => {
         
     }
 }
+exports.getFood = async(req, res) =>{
+    try {
+        const foodId = req.params.foodId
+      const foodItem = await Food.findById(foodId);
+      if (!foodItem) {
+        throw new Error("Food item not found.");
+      }
+      return foodItem;
+    } catch (error) {
+      console.error(error.message);
+    }
+  }

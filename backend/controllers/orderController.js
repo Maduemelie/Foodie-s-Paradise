@@ -15,7 +15,7 @@ exports.createOrder = async (req, res) => {
       orderItems.map(async (foodName) => {
         // console.log(foodName)
         let food = await Food.findOne({ name: foodName });
-        console.log(food);
+        console.log(food.name);
         return food._id;
       })
     );
@@ -45,7 +45,7 @@ exports.userOrderHistory = async (req, res) => {
     customerName = userId;
     // Find all orders for the current user
     const orders = await Order.find({ customerName }).populate("orderItems");
-
+console.log(orders)
     // Map the orders to a more readable format
     const formattedOrders = orders.map((order) => ({
       id: order._id,

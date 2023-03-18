@@ -2,6 +2,8 @@ const output = document.querySelector(".output");
 const Foodie_chat = document.querySelector(".Foodie_chat");
 const inputNum = document.getElementById("inputNum");
 const btn = document.querySelector(".btn");
+const optionsDiv = document.querySelector(".options");
+console.log(btn);
 let arr;
 
 //function to get the userId
@@ -22,29 +24,51 @@ console.log(userId);
 async function handleInput() {
   if (inputNum.value === "1") {
     arr = [];
+    const optionsDiv = document.querySelector(".options");
+    if (optionsDiv) {
+      optionsDiv.remove();
+    }
+
     await showMenu();
-    
-    
-    // arr = selectFoodItems(items);
   } else {
     if (inputNum.value === "99") {
       createOrder();
       if (arr.length === 0) {
         displayMessage("No order to place");
-        btn.innerHTML = "Place order";
-        btn.addEventListener("click", async () => {
-          handleInput();
+        inputNum.value = "";
+        const placeOrderButton = document.createElement("button");
+        placeOrderButton.textContent = "Place order";
+        placeOrderButton.className = "order-button";
+
+        placeOrderButton.addEventListener("click", async () => {
+          await showMenu();
+          Foodie_chat.removeChild(placeOrderButton);
         });
+
+        Foodie_chat.appendChild(placeOrderButton);
         return;
       } else {
-        displayMessageWrapper("Order placed");
+        const messageElement = document.querySelector(".message");
+        if (messageElement) {
+          messageElement.remove();
+        }
       }
-      const optionsDiv = document.querySelector(".options");
-      optionsDiv.innerHTML = "";
-    } 
-    // handle other input numbers here
+      // optionsDiv.innerHTML = "";
+    } else {
+      // displayMessageWrapper("Order placed");
+    }
+
+    // optionsDiv.innerHTML = "";
   }
-  
+  if (inputNum.value === "98") {
+    await getOrderHistory();
+  }
+  if (inputNum.value === "97") {
+    await getCurrentOrder();
+  }
+  if (inputNum.value === "0") {
+    await cancelOrder();
+  }
   inputNum.value = "";
 }
 
@@ -98,8 +122,8 @@ async function showMenu() {
     const selectedItems = selectFoodItems(foodItems);
     const messageToSend = `You have selected the following items:\n 
    \n </br>${selectedItems.join("</br>")}`;
-  optionsDiv =  displayMessage(messageToSend);
-    
+    let messageElement = createElement("message", messageToSend);
+    Foodie_chat.appendChild(messageElement);
   });
   Foodie_chat.appendChild(doneButton);
 
@@ -113,12 +137,91 @@ async function showMenu() {
     });
     Foodie_chat.removeChild(doneButton);
     arr = selectedItems;
-    
+
+    optionsDiv.style.display = "none";
 
     // console.log(selectedItems);
     return selectedItems;
   }
 }
+
+async function getOrderHistory() {
+  await fetch(`http://localhost:4000/api/v1/order`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "X-User-Id": userId, // Send the user ID in a custom header
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((order) => {
+        const customerName = order.id;
+        const items = order.items
+          .map((item) => `${item.name} ($${item.price})`)
+          .join(", ");
+        const total = `$${order.total.toFixed(2)}`;
+        const status = order.status;
+
+        const messageToSend = `Order ID: ${order.id}</br>\nCustomer Name: ${customerName}</br>\nItems: ${items}</br>\nTotal: ${total}</br>\nStatus: ${status}`;
+        let messageElement = createElement("message", messageToSend);
+        Foodie_chat.appendChild(messageElement);
+      });
+
+      // console.log(data)
+      // console.log(data[0].items)
+      // console.log(data[0].items[0].price)
+    });
+}
+
+async function getCurrentOrder() {
+  let currentOrder = await fetch(
+    `http://localhost:4000/api/v1/order/${userId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-User-Id": userId, // Send the user ID in a custom header
+      },
+    }
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const id = data.id;
+      const items = data.items
+        .map((item) => `${item.name} ($${item.price})`)
+        .join(", ");
+      const total = `$${data.total.toFixed(2)}`;
+      console.log(id, items, total)
+      const messageToSend = `your current order!</br> name: ${id} </br> Items: ${items}.</br> Total price: ${total}.`;
+      let messageElement = createElement("message", messageToSend);
+      Foodie_chat.appendChild(messageElement);
+
+      console.log(data);
+      console.log(data.id);
+      console.log(data.items[0]);
+    });
+}
+
+
+async function cancelOrder() {
+  // const data = {
+  //   customerName: userId,
+  // };
+  const response = await fetch(`http://localhost:4000/api/v1/order/${userId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "X-User-Id": userId, // Send the user ID in a custom header
+    },
+    // body: JSON.stringify(data),
+  });
+  const data = await response.json();
+  const message = data.message;
+
+  displayMessageWrapper(message);
+}
+
 
 async function createOrder() {
   const data = {
@@ -130,23 +233,35 @@ async function createOrder() {
   console.log(data.orderItems);
   console.log(data.totalPrice);
 
-  const order = await fetch("http://localhost:4000/api/v1/order", {
+  const response = await fetch("http://localhost:4000/api/v1/order", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "X-User-Id": userId, // Send the user ID in a custom header
     },
     body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error));
-    const optionsDiv = document.querySelector(".options");
-    Foodie_chat.removeChild(optionsDiv)
-  return order;
-  
-}
+  });
+  if (response.ok) {
+    // console.log(response)
+    const order = await response.json();
+    console.log(order);
+    // display order items and total price
+    const messageToSend = `Order placed. </br> Total price: $${order.data.totalPrice}`;
+    let messageElement = createElement("message", messageToSend);
+    Foodie_chat.appendChild(messageElement);
+  } else {
+    // if there was an error creating the order, display an error message
+    let messageElement = createElement(
+      "message",
+      "There was an error creating your order. Please try again later."
+    );
+    Foodie_chat.appendChild(messageElement);
+  }
 
+  // remove the options from the screen
+  const optionsDiv = document.querySelector(".options");
+  Foodie_chat.removeChild(optionsDiv);
+}
 
 //function to display message
 function displayMessage(message) {
@@ -158,6 +273,12 @@ function displayMessageWrapper(message, targetElement = document.body) {
   messageElement.className = "message";
   messageElement.innerText = message;
   targetElement.appendChild(messageElement);
+
+  // Add the CSS rules to center the message
+  messageElement.style.position = "fixed";
+  messageElement.style.top = "50%";
+  messageElement.style.left = "50%";
+  messageElement.style.transform = "translate(-50%, -50%)";
 
   setTimeout(() => {
     targetElement.removeChild(messageElement);
@@ -176,4 +297,19 @@ function returnFoodPrice(arr) {
     return accumulator + currentItem;
   }, 0);
   return totalPrice;
+}
+// function to create new button
+function createButton(className, content) {
+  const button = document.createElement("button");
+  button.className = `btn ${className}`;
+  button.innerHTML = content;
+  return button;
+}
+
+// function to create new element
+function createElement(className, content) {
+  const element = document.createElement("div");
+  element.className = className;
+  element.innerHTML = content;
+  return element;
 }
