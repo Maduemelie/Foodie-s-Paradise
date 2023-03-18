@@ -1,5 +1,5 @@
-const MealPlan = require("../../models/mealPlanModel");
-const Food = require("../../models/foodModel");
+const MealPlan = require("../models/mealPlanModel");
+const Food = require("../models/foodModel");
 
 exports.createMealPlan = async (req, res) => {
   try {

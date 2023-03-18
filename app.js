@@ -1,9 +1,9 @@
 const express = require("express");
 const connectToDb = require("./config/mongoDb");
 const cookieParser = require('cookie-parser');
-const mealRouter = require("./backend/routes/mealPlanRoutes");
-const foodRouter = require("./backend/routes/foodRoutes");
-const orderRouter = require('./backend/routes/orderRouter')
+const mealRouter = require("./routes/mealPlanRoutes");
+const foodRouter = require("./routes/foodRoutes");
+const orderRouter = require('./routes/orderRouter')
 const cors = require('cors')
 const {generateUserId} = require('./utils/userId')
 
