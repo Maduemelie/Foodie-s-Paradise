@@ -24,4 +24,4 @@ If you'd like to contribute to the project, feel free to fork the repository and
 
 ## **Credits**
 
-This project was created by [Your Name Here] as part of a [Course Name Here] course. The project is licensed under the [License Name Here] license.
+This project was created by Madu Emelie as part of a Altschool final project course. 
