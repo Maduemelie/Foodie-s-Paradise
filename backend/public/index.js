@@ -33,28 +33,10 @@ async function handleInput() {
   } else {
     if (inputNum.value === "99") {
       createOrder();
-      if (arr.length === 0) {
-        displayMessage("No order to place");
-        inputNum.value = "";
-        const placeOrderButton = document.createElement("button");
-        placeOrderButton.textContent = "Place order";
-        placeOrderButton.className = "order-button";
-
-        placeOrderButton.addEventListener("click", async () => {
-          await showMenu();
-          Foodie_chat.removeChild(placeOrderButton);
-        });
-
-        Foodie_chat.appendChild(placeOrderButton);
-        return;
-      } else {
-        const messageElement = document.querySelector(".message");
-        if (messageElement) {
-          messageElement.remove();
-        }
-      }
+      
+      } 
       // optionsDiv.innerHTML = "";
-    } else {
+     else {
       // displayMessageWrapper("Order placed");
     }
 
@@ -86,21 +68,32 @@ async function showMenu() {
   const day = daysOfWeek[today.getDay()];
 
   // fetch the meal options for the current day
-  let items = await fetch(`http://localhost:4000/api/v1/mealplan/${day}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "X-User-Id": userId, // Send the user ID in a custom header
-    },
-  }).then((response) => response.json());
-  console.log(items);
+  let items;
+  try {
+    const response = await fetch(`http://localhost:4000/api/v1/mealplan/${day}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-User-Id": userId, // Send the user ID in a custom header
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch menu items.");
+    }
+    items = await response.json();
+  } catch (error) {
+    console.error(error);
+    alert("Failed to fetch menu items. Please try again later.");
+    return;
+  }
+  
   let optionsDiv = document.createElement("div");
   optionsDiv.className = "options";
   Foodie_chat.appendChild(optionsDiv);
   const header = document.createElement("h4");
   header.textContent = `Here's the meal plan for ${day}:`;
   optionsDiv.appendChild(header);
-  console.log(optionsDiv);
+
   // format the meal options for display
   const foodItems = Object.values(items.meals)
     .flat()
@@ -115,11 +108,16 @@ async function showMenu() {
       optionsDiv.appendChild(option);
       return food;
     });
+
   const doneButton = document.createElement("button");
   doneButton.textContent = "Done";
   doneButton.className = "done-button";
   doneButton.addEventListener("click", () => {
     const selectedItems = selectFoodItems(foodItems);
+    if (selectedItems.length === 0) {
+      alert("Please select at least one item.");
+      return;
+    }
     const messageToSend = `You have selected the following items:\n 
    \n </br>${selectedItems.join("</br>")}`;
     let messageElement = createElement("message", messageToSend);
@@ -144,6 +142,7 @@ async function showMenu() {
     return selectedItems;
   }
 }
+
 
 async function getOrderHistory() {
   await fetch(`http://localhost:4000/api/v1/order`, {
@@ -223,6 +222,7 @@ async function cancelOrder() {
 }
 
 
+
 async function createOrder() {
   const data = {
     customerName: userId,
@@ -244,7 +244,7 @@ async function createOrder() {
   if (response.ok) {
     // console.log(response)
     const order = await response.json();
-    console.log(order);
+    
     // display order items and total price
     const messageToSend = `Order placed. </br> Total price: $${order.data.totalPrice}`;
     let messageElement = createElement("message", messageToSend);
