@@ -1,9 +1,9 @@
-const output = document.querySelector(".output");
+// const output = document.querySelector(".output");
 const Foodie_chat = document.querySelector(".Foodie_chat");
 const inputNum = document.getElementById("inputNum");
-const btn = document.querySelector(".btn");
+// const btn = document.querySelector(".btn");
 const optionsDiv = document.querySelector(".options");
-console.log(btn);
+// console.log(btn);
 let arr;
 
 //function to get the userId
@@ -30,17 +30,10 @@ async function handleInput() {
     }
 
     await showMenu();
-  } else {
+  } 
     if (inputNum.value === "99") {
       createOrder();
       
-      } 
-      // optionsDiv.innerHTML = "";
-     else {
-      // displayMessageWrapper("Order placed");
-    }
-
-    // optionsDiv.innerHTML = "";
   }
   if (inputNum.value === "98") {
     await getOrderHistory();
@@ -280,49 +273,6 @@ async function createOrder() {
 }
 }
   
-
-
-
-// async function createOrder() {
-//   const data = {
-//     customerName: userId,
-//     orderItems: returnFoodName(arr),
-//     totalPrice: returnFoodPrice(arr),
-//   };
-//   console.log(data.customerName);
-//   console.log(data.orderItems);
-//   console.log(data.totalPrice);
-
-//   const response = await fetch("http://localhost:4000/api/v1/order", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       "X-User-Id": userId, // Send the user ID in a custom header
-//     },
-//     body: JSON.stringify(data),
-//   });
-//   if (response.ok) {
-//     // console.log(response)
-//     const order = await response.json();
-    
-//     // display order items and total price
-//     const messageToSend = `Order placed. </br> Total price: $${order.data.totalPrice}`;
-//     let messageElement = createElement("message", messageToSend);
-//     Foodie_chat.appendChild(messageElement);
-//   } else {
-//     // if there was an error creating the order, display an error message
-//     let messageElement = createElement(
-//       "message",
-//       "There was an error creating your order. Please try again later."
-//     );
-//     Foodie_chat.appendChild(messageElement);
-//   }
-
-//   // remove the options from the screen
-//   const optionsDiv = document.querySelector(".options");
-//   Foodie_chat.removeChild(optionsDiv);
-// }
-
 //function to display message
 function displayMessage(message) {
   const optionsDiv = document.querySelector(".options");
